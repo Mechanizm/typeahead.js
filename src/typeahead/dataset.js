@@ -91,9 +91,9 @@ var Dataset = (function() {
       function getSuggestionsHtml() {
         var $suggestions, nodes;
 
-        console.log('------')
+        console.log('------');
         console.log($(html.suggestions));
-        console.log('------')
+        console.log('------');
         $suggestions = $(html.suggestions).css(css.suggestions);
 
         // jQuery#append doesn't support arrays as the first argument

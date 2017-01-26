@@ -1200,6 +1200,9 @@
                 }
                 function getSuggestionsHtml() {
                     var $suggestions, nodes;
+                    console.log("------");
+                    console.log($(html.suggestions));
+                    console.log("------");
                     $suggestions = $(html.suggestions).css(css.suggestions);
                     nodes = _.map(suggestions, getSuggestionNode);
                     $suggestions.append.apply($suggestions, nodes);

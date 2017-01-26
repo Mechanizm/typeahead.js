@@ -1,7 +1,7 @@
 /*!
  * typeahead.js 0.10.5
  * https://github.com/twitter/typeahead.js
- * Copyright 2013-2014 Twitter, Inc. and other contributors; Licensed MIT
+ * Copyright 2013-2017 Twitter, Inc. and other contributors; Licensed MIT
  */
 
 (function($) {
@@ -131,7 +131,7 @@
             wrapper: '<span class="twitter-typeahead"></span>',
             dropdown: '<span class="tt-dropdown-menu"></span>',
             dataset: '<div class="tt-dataset-%CLASS%"></div>',
-            suggestions: '<span class="tt-suggestions"></span>',
+            suggestions: "<div class='clipper'> <div class='wrapper'> <span class='tt-suggestions'></span> </div> <div class='scroller__track__y'> <div class='bar__y'></div> </div> </div> ",
             suggestion: '<div class="tt-suggestion"></div>'
         };
     }();

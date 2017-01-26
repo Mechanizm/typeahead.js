@@ -728,7 +728,7 @@
         return {
             wrapper: '<span class="twitter-typeahead"></span>',
             dropdown: '<span class="tt-dropdown-menu"></span>',
-            dataset: '<div class="tt-dataset-%CLASS%"></div>',
+            dataset: "<div class='clipper'> <div class='wrapper'> <div class='tt-dataset-%CLASS%'></div> <div class='scroller__track__y'> <div class='bar__y'></div> </div> </div> </div>",
             suggestions: "<div class='clipper'> <div class='wrapper'> <span class='tt-suggestions'></span> </div> <div class='scroller__track__y'> <div class='bar__y'></div> </div> </div> ",
             suggestion: '<div class="tt-suggestion"></div>'
         };

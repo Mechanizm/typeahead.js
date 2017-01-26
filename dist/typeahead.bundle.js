@@ -729,7 +729,7 @@
             wrapper: '<span class="twitter-typeahead"></span>',
             dropdown: '<span class="tt-dropdown-menu"></span>',
             dataset: '<div class="tt-dataset-%CLASS%"></div>',
-            suggestions: "<span class='tt-suggestions'></span>",
+            suggestions: "<div class='clipper'> <div class='wrapper'> <span class='tt-suggestions'></span> </div> <div class='scroller__track__y'> <div class='bar__y'></div> </div> </div> ",
             suggestion: '<div class="tt-suggestion"></div>'
         };
     }();
@@ -1200,9 +1200,6 @@
                 }
                 function getSuggestionsHtml() {
                     var $suggestions, nodes;
-                    console.log("------");
-                    console.log($(html.suggestions));
-                    console.log("------");
                     $suggestions = $(html.suggestions).css(css.suggestions);
                     nodes = _.map(suggestions, getSuggestionNode);
                     $suggestions.append.apply($suggestions, nodes);

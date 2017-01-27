@@ -20,6 +20,7 @@ var Dataset = (function() {
       $.error('missing source');
     }
 
+
     if (o.name && !isValidName(o.name)) {
       $.error('invalid dataset name: ' + o.name);
     }
@@ -36,6 +37,11 @@ var Dataset = (function() {
     this.templates = getTemplates(o.templates, this.displayFn);
 
     this.$el = $(html.dataset.replace('%CLASS%', this.name));
+
+    this.clipper = $($.parseHTML("<div class='clipper'></div>"));
+    this.scroller = $($.parseHTML("<div class='scroller'></div>"));
+    this.scrollBar = $($.parseHTML("<div class='bar__y'></div>"));
+    this.scrollTrack = $($.parseHTML("<div class='scroller__track__y'></div>"));
   }
 
   // static methods
@@ -81,6 +87,21 @@ var Dataset = (function() {
         .prepend(that.templates.header ? getHeaderHtml() : null)
         .append(that.templates.footer ? getFooterHtml() : null);
       }
+
+      this.scroller.append(this.$el)
+      this.clipper.append(this.scroller)
+      this.scrollTrack.append(this.scrollBar);
+      this.clipper.append(this.scrollTrack);
+
+      var options = {
+        root: this.clipper,
+        scroller: '.scroller',
+        bar: '.bar__y',
+        barOnCls: 'baron',
+        scrollingCls: 'scrolling_y'
+      }
+
+      baron(options);
 
       this.trigger('rendered');
 
@@ -139,7 +160,7 @@ var Dataset = (function() {
     // ### public
 
     getRoot: function getRoot() {
-      return this.$el;
+      return this.clipper;
     },
 
     update: function update(query) {
@@ -164,7 +185,7 @@ var Dataset = (function() {
 
     clear: function clear() {
       this.cancel();
-      this.$el.empty();
+      // this.$el.empty();
       this.trigger('rendered');
     },
 

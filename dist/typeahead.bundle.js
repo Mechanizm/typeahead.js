@@ -727,9 +727,9 @@
     var html = function() {
         return {
             wrapper: '<span class="twitter-typeahead"></span>',
-            dropdown: "<div class='clipper'> <div class='wrapper'> <span class='tt-dropdown-menu'></span> <div class='scroller__track__y'> <div class='bar__y'></div> </div> </div> </div>",
-            dataset: "<div class='clipper'> <div class='wrapper'> <div class='tt-dataset-%CLASS%'></div> <div class='scroller__track__y'> <div class='bar__y'></div> </div> </div> </div>",
-            suggestions: "<div class='clipper'> <div class='wrapper'> <span class='tt-suggestions'></span> </div> <div class='scroller__track__y'> <div class='bar__y'></div> </div> </div> ",
+            dropdown: "<span class='tt-dropdown-menu'></span>",
+            dataset: "<div class='tt-dataset-%CLASS%'></div>",
+            suggestions: "<span class='tt-suggestions'></span>",
             suggestion: '<div class="tt-suggestion"></div>'
         };
     }();
@@ -1168,6 +1168,10 @@
             this.displayFn = getDisplayFn(o.display || o.displayKey);
             this.templates = getTemplates(o.templates, this.displayFn);
             this.$el = $(html.dataset.replace("%CLASS%", this.name));
+            this.clipper = $($.parseHTML("<div class='clipper'></div>"));
+            this.scroller = $($.parseHTML("<div class='scroller'></div>"));
+            this.scrollBar = $($.parseHTML("<div class='bar__y'></div>"));
+            this.scrollTrack = $($.parseHTML("<div class='scroller__track__y'></div>"));
         }
         Dataset.extractDatasetName = function extractDatasetName(el) {
             return $(el).data(datasetKey);
@@ -1191,6 +1195,18 @@
                 } else if (hasSuggestions) {
                     this.$el.html(getSuggestionsHtml()).prepend(that.templates.header ? getHeaderHtml() : null).append(that.templates.footer ? getFooterHtml() : null);
                 }
+                this.scroller.append(this.$el);
+                this.clipper.append(this.scroller);
+                this.scrollTrack.append(this.scrollBar);
+                this.clipper.append(this.scrollTrack);
+                var options = {
+                    root: this.clipper,
+                    scroller: ".scroller",
+                    bar: ".bar__y",
+                    barOnCls: "baron",
+                    scrollingCls: "scrolling_y"
+                };
+                baron(options);
                 this.trigger("rendered");
                 function getEmptyHtml() {
                     return that.templates.empty({
@@ -1232,7 +1248,7 @@
                 }
             },
             getRoot: function getRoot() {
-                return this.$el;
+                return this.clipper;
             },
             update: function update(query) {
                 var that = this;
@@ -1250,7 +1266,6 @@
             },
             clear: function clear() {
                 this.cancel();
-                this.$el.empty();
                 this.trigger("rendered");
             },
             isEmpty: function isEmpty() {

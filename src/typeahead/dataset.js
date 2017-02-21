@@ -38,7 +38,7 @@ var Dataset = (function() {
 
     this.$el = $(html.dataset.replace('%CLASS%', this.name));
 
-    this.clipper = $($.parseHTML("<div class='clipper'></div>"));
+    this.clipper = $($.parseHTML("<div class='clipper permanent'></div>"));
     this.scroller = $($.parseHTML("<div class='scroller'></div>"));
     this.scrollBar = $($.parseHTML("<div class='bar__y'></div>"));
     this.scrollTrack = $($.parseHTML("<div class='scroller__track__y'></div>"));
